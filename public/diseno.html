@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diseño · Comparador de Planes de Gobierno Perú 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --surface2: #eef1f5;
+      --border: #dde1e8;
+      --text: #16233f;
+      --text-muted: #5a6a85;
+      --navy: #042355;
+      --lime: #add94b;
+      --lime-dark: #8fbf2f;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #e9ecf1;
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--surface);
+      min-height: 100vh;
+      box-shadow: 0 0 60px rgba(4,35,85,0.05);
+    }
+    .hero {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px 56px;
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 90px; height: 4px;
+      background: var(--lime);
+      border-radius: 2px;
+    }
+    .hero-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--lime);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--lime); }
+    .hero p {
+      color: #cfd8ea;
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .section { padding: 56px 32px; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--lime-dark);
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .section > p { color: var(--text-muted); max-width: 720px; }
+    .divider { height: 1px; background: var(--border); margin: 0 32px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--lime);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+    .card p { font-size: 0.88rem; color: var(--text-muted); }
+
+    .mermaid-wrapper {
+      background: #0e1a33;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+      overflow-x: auto;
+    }
+    .mermaid { display: flex; justify-content: center; }
+
+    .steps { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+    .step { display: flex; gap: 18px; }
+    .step-dot {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--lime);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem;
+    }
+    .step-body h4 { color: var(--navy); font-size: 1rem; margin-bottom: 4px; }
+    .step-body p { color: var(--text-muted); font-size: 0.92rem; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { color: var(--navy); font-weight: 700; background: var(--surface2); }
+    td { color: var(--text-muted); }
+    code {
+      background: rgba(4,35,85,0.06);
+      color: var(--navy);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .badge {
+      background: rgba(173,217,75,0.15);
+      color: var(--navy);
+      border: 1px solid var(--lime);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: monospace;
+    }
+
+    footer {
+      padding: 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+      .cards { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="hero">
+      <div class="hero-label">Documento de Diseño</div>
+      <h1>Comparador de <span>Planes de Gobierno</span><br>Perú 2026</h1>
+      <p>Cómo funciona el sistema que permite consultar y comparar las propuestas de los 7 planes
+        de gobierno presentados ante el JNE, citando siempre candidato y página fuente.</p>
+      <div style="margin-top: 24px; display: inline-block; background: rgba(173,217,75,0.12); border: 1px solid var(--lime); border-radius: 8px; padding: 10px 18px; font-size: 0.85rem; color: #e4ecfb;">
+        Prueba de concepto — esta versión cubre las Elecciones Generales 2026, pero el diseño
+        está pensado para escalar a las <strong>Elecciones Regionales y Municipales</strong>,
+        donde el número de candidatos y planes locales es mucho mayor.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Visión General</div>
+      <h2>¿Qué es este proyecto?</h2>
+      <p>Una app de consulta ciudadana con dos modos de uso: preguntas libres sobre un candidato
+        o el conjunto de planes, y comparación de un tema específico entre varios candidatos a la vez.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Modo Chat</h3>
+          <p>Pregunta libre. Recupera los 10 fragmentos más relevantes (global o filtrado por
+            candidato) y responde citando página.</p>
+        </div>
+        <div class="card">
+          <h3>Modo Comparar</h3>
+          <p>Un tema corto. Retrieval independiente por candidato (top-4 cada uno) para no
+            sesgar por extensión del documento.</p>
+        </div>
+        <div class="card">
+          <h3>Sin servidor con datos</h3>
+          <p>La API key de OpenRouter la pega cada usuario en el navegador y vive solo en
+            <code>localStorage</code>, nunca en el servidor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section" style="padding-top: 40px;">
+      <div class="section-label">Flujo Visual</div>
+      <h2>Cómo funciona el modo Chat</h2>
+      <p>Desde que el ciudadano escribe una pregunta hasta que recibe una respuesta con fuentes citadas.</p>
+      <div class="mermaid-wrapper">
+        <pre class="mermaid">
+sequenceDiagram
+    actor U as Ciudadano
+    participant FE as Frontend<br/>(app/page.tsx)
+    participant API as API Route<br/>(/api/chat)
+    participant OR as OpenRouter<br/>(Embeddings)
+    participant IDX as VectorIndex<br/>(en memoria)
+    participant LLM as OpenRouter<br/>(gpt-4o-mini)
+
+    U->>FE: Escribe pregunta + (opcional) candidato
+    FE->>API: POST {apiKey, pregunta, candidatos}
+
+    rect rgb(14, 26, 51)
+        Note over API,OR: RETRIEVAL
+        API->>OR: embedQuery(pregunta)
+        OR-->>API: vector [512 dims]
+        API->>IDX: search(vector, topK=10, filtro candidato)
+        IDX-->>API: top-10 fragmentos por similitud coseno
+    end
+
+    rect rgb(14, 26, 51)
+        Note over API,LLM: GENERACIÓN
+        API->>LLM: prompt sistema + fragmentos con cita [candidato, p. X]
+        LLM-->>API: respuesta citando (Candidato, p. X)
+    end
+
+    API-->>FE: {respuesta, fuentes[]}
+    FE-->>U: Respuesta + lista de fuentes citadas
+        </pre>
+      </div>
+    </div>
+
+    <div class="section" style="padding-top: 0;">
+      <h2>Cómo funciona el modo Comparar</h2>
+      <p>La diferencia clave: el retrieval se hace por separado para cada candidato, para que un
+        plan de 145 páginas no opaque a uno de 25.</p>
+      <div class="mermaid-wrapper">
+        <pre class="mermaid">
+sequenceDiagram
+    actor U as Ciudadano
+    participant FE as Frontend
+    participant API as API Route<br/>(/api/compare)
+    participant IDX as VectorIndex
+
+    U->>FE: Escribe tema (ej. "seguridad ciudadana")
+    FE->>API: POST {apiKey, tema, candidatos[]}
+    API->>API: embedQuery(tema)
+
+    loop por cada candidato seleccionado
+        API->>IDX: search(vector, topK=4, filtro=[candidato])
+        IDX-->>API: top-4 fragmentos de ESE candidato
+    end
+
+    API->>API: agrupar contexto por candidato
+    API->>API: LLM devuelve array JSON:<br/>[{candidato, partido, propuesta, sin_informacion}]
+    API-->>FE: tarjetas de propuesta, una por candidato
+    FE-->>U: Grilla comparativa con citas de página
+        </pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Estructura</div>
+      <h2>Capas de la arquitectura</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot">1</div>
+          <div class="step-body">
+            <h4>Frontend (Next.js App Router)</h4>
+            <p>CSS plano en <code>app/globals.css</code>, sin librerías de UI externas. El usuario
+              pega su API key de OpenRouter (guardada solo en <code>localStorage</code>), elige modo
+              chat o comparar, y opcionalmente filtra por candidato.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">2</div>
+          <div class="step-body">
+            <h4>API Routes (orquestación)</h4>
+            <p><code>app/api/chat/route.ts</code> y <code>app/api/compare/route.ts</code> reciben la
+              pregunta, generan el embedding, buscan en el índice en memoria y arman el prompt para
+              el LLM. Cada request corre en una función serverless de Vercel.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">3</div>
+          <div class="step-body">
+            <h4>Índice vectorial en memoria</h4>
+            <p><code>lib/index.ts</code> construye un singleton de <code>VectorIndex</code>
+              (<code>lib/embeddings.ts</code>) a partir de <code>data/chunks.json</code>: 2,019
+              fragmentos ya con su embedding precalculado. Solo se calcula el embedding de la
+              pregunta en cada request.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">4</div>
+          <div class="step-body">
+            <h4>OpenRouter (servicios externos)</h4>
+            <p>Un único proveedor para dos tareas: <code>openai/text-embedding-3-small</code> (512
+              dimensiones) para los embeddings, y <code>openai/gpt-4o-mini</code> (modelo fijo,
+              <code>MODELO_FIJO</code>) para generar la respuesta final.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Datos</div>
+      <h2>De los PDF del JNE a fragmentos citables</h2>
+      <p>Pipeline offline, ejecutado una sola vez (y de nuevo solo si cambian las fuentes):</p>
+      <table>
+        <tr><th>Paso</th><th>Script</th><th>Qué hace</th></tr>
+        <tr>
+          <td>1. Extracción</td>
+          <td><code>extract_chunks_md.py</code></td>
+          <td>Lee <code>fuentes-oficiales/*.md</code>, detecta marcadores de página, limpia
+            markdown y segmenta en chunks de 900 caracteres con 150 de overlap.</td>
+        </tr>
+        <tr>
+          <td>2. Embeddings</td>
+          <td><code>scripts/build-embeddings.mjs</code></td>
+          <td>Agrega el campo <code>embedding</code> a cada chunk vía OpenRouter. Resumible si se
+            corta a mitad de camino.</td>
+        </tr>
+        <tr>
+          <td>3. Resultado</td>
+          <td><code>data/chunks.json</code></td>
+          <td>2,019 chunks con texto, candidato, partido, página y embedding — listo para servir
+            en producción sin recalcular nada.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Stack</div>
+      <h2>Tecnologías involucradas</h2>
+      <div class="badges">
+        <span class="badge">Next.js 14 (App Router)</span>
+        <span class="badge">TypeScript</span>
+        <span class="badge">OpenRouter — embeddings</span>
+        <span class="badge">OpenRouter — gpt-4o-mini</span>
+        <span class="badge">Similitud coseno</span>
+        <span class="badge">localStorage (API key)</span>
+        <span class="badge">Vercel (serverless)</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Alcance y proyección</div>
+      <h2>Una prueba de concepto pensada para escalar</h2>
+      <p>Esta versión demuestra el enfoque con los 7 planes de gobierno de las Elecciones
+        Generales 2026. La arquitectura — chunking + embeddings + índice en memoria, sin base de
+        datos ni servidor con estado — está pensada desde el inicio para escalar a un escenario
+        de mayor volumen: las <strong>Elecciones Regionales y Municipales</strong>, donde el
+        número de candidatos y planes de gobierno locales es varios órdenes de magnitud mayor
+        (cientos de gobiernos regionales, provinciales y distritales, cada uno con su propio
+        plan).</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot">→</div>
+          <div class="step-body">
+            <h4>Mismo pipeline, más fuentes</h4>
+            <p><code>extract_chunks_md.py</code> y <code>scripts/build-embeddings.mjs</code> no
+              asumen nada específico de la elección general — solo esperan markdown con
+              marcadores de página. Agregar planes regionales/municipales es correr el mismo
+              pipeline sobre más archivos.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">→</div>
+          <div class="step-body">
+            <h4>Retrieval que ya no depende de cargar todo en memoria</h4>
+            <p>Con cientos de planes, <code>data/chunks.json</code> cargado completo en cada
+              invocación serverless dejaría de ser viable. El siguiente paso natural sería mover
+              el índice a una base vectorial (ej. Pinecone) en vez de un <code>VectorIndex</code>
+              en memoria.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">→</div>
+          <div class="step-body">
+            <h4>Filtro por ámbito geográfico</h4>
+            <p>El filtro actual por candidato se extendería a un filtro por región, provincia o
+              distrito, para que la pregunta "¿qué propone el candidato a la municipalidad de
+              X?" busque solo dentro de ese ámbito.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Límites conocidos</div>
+      <h2>Qué no resuelve (todavía)</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-dot">!</div>
+          <div class="step-body">
+            <h4>Nombres propios vs. tema semántico</h4>
+            <p>Preguntar "¿qué propone Jorge Nieto sobre IA?" sin usar el filtro de candidato
+              mezcla fragmentos de otros candidatos, porque los embeddings no distinguen bien
+              nombres propios. Con el filtro de candidato activado, la respuesta es correcta.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-dot">!</div>
+          <div class="step-body">
+            <h4>Extensión desigual de los documentos</h4>
+            <p>Los planes van de 25 a 145 páginas. El modo comparativo lo mitiga haciendo
+              retrieval independiente por candidato en vez de una búsqueda global.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Comparador de Planes de Gobierno · Perú 2026 — Trabajo final, E-Government Intelligence (PUCP, Q-LAB)
+    </footer>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        background: '#0e1a33',
+        primaryColor: '#042355',
+        primaryTextColor: '#ffffff',
+        primaryBorderColor: '#add94b',
+        lineColor: '#add94b',
+        secondaryColor: '#0e1a33',
+        tertiaryColor: '#0e1a33',
+        actorBkg: '#042355',
+        actorBorder: '#add94b',
+        actorTextColor: '#ffffff',
+        signalColor: '#cfd8ea',
+        signalTextColor: '#ffffff',
+        labelBoxBkgColor: '#042355',
+        labelBoxBorderColor: '#add94b',
+        labelTextColor: '#ffffff',
+        noteBkgColor: '#16233f',
+        noteTextColor: '#cfd8ea',
+        noteBorderColor: '#add94b',
+      },
+    });
+  </script>
+</body>
+</html>

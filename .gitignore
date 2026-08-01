@@ -1,0 +1,15 @@
+node_modules
+.next
+.env
+.env.local
+*.log
+.venv
+
+# Los PDF originales son solo referencia (13 MB); el repo desplegado en Vercel
+# solo necesita data/chunks.json, que ya contiene el texto extraído.
+# Si prefieres conservarlos en GitHub para trazabilidad, comenta la línea siguiente.
+fuentes/*.pdf
+.DS_Store
+.claude/settings.local.json
+~$*
+CLAUDE.md
